@@ -1,0 +1,32 @@
+
+# ESP-IDF Build
+build/
+managed_components/
+
+# ESP-IDF configuration
+sdkconfig
+sdkconfig.old
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Backup files
+*~
+*.bak
