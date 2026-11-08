@@ -2,31 +2,25 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
-#include "input.h" // <-- ดึงไลบรารีปุ่มที่เราเขียนขึ้นมา
+#include "input.h" 
+#include "time_settings.h"
+#include "timezone.h"
+// เดี๋ยวเราจะมาเพิ่ม #include "clock.h" ตรงนี้ในสเต็ปถัดไป
 
 static const char *TAG = "MAIN_TEST";
 
+// เก็บค่า WiFi ไว้ก่อน เพราะเดี๋ยวก็ต้องใช้ซิงค์เวลา
+#define WIFI_SSID "WIFI_NAME"
+#define WIFI_PASS "WIFI_PASSWORD"
+
 void app_main(void)
 {
-    ESP_LOGI(TAG, "Starting Input Button Test...");
+    ESP_LOGI(TAG, "System Ready for State Machine...");
     
-    // 1. เรียกใช้งานฟังก์ชันเริ่มต้นปุ่มกด
-    input_init();
-    ESP_LOGI(TAG, "Buttons Initialized. Press UP, DOWN, or SELECT...");
-
-    // 2. ลูปตรวจสอบการกดปุ่ม (ทำงานทุก 50ms)
+    // เตรียมพื้นที่ว่างไว้เรียกใช้ clock_init(); และ clock_update();
+    
     while (1) {
-        button_type_t btn = input_get_pressed_button();
-        
-        if (btn == BTN_UP) {
-            ESP_LOGI(TAG, "Button PRESSED: [UP]");
-        } else if (btn == BTN_DOWN) {
-            ESP_LOGI(TAG, "Button PRESSED: [DOWN]");
-        } else if (btn == BTN_SELECT) {
-            ESP_LOGI(TAG, "Button PRESSED: [SELECT]");
-        }
-        
-        // หน่วงเวลาสั้นๆ เพื่อไม่ให้ลูปกินซีพียู 100%
-        vTaskDelay(pdMS_TO_TICKS(50));
+        // ลูปหลักเตรียมรอ State Machine
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
