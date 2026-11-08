@@ -3,12 +3,13 @@
 #include "freertos/task.h"
 #include "esp_log.h"
 #include "time_settings.h"
+#include "timezone.h"
 
 static const char *TAG = "MAIN_TEST";
 
 // กำหนดชื่อ WiFi และ Password ของคุณ
-#define WIFI_SSID "WIFI_Name"
-#define WIFI_PASS "WIFI_Password"
+#define WIFI_SSID "WIFI_NAME"
+#define WIFI_PASS "WIFI_PASSWORD"
 
 void app_main(void)
 {
@@ -20,6 +21,9 @@ void app_main(void)
     // ทดสอบ Validation ฟังก์ชัน
     ESP_LOGI(TAG, "Leap year 2024? %s", is_leap_year(2024) ? "Yes" : "No");
     ESP_LOGI(TAG, "Valid date 31 Feb 2024? %s", validate_date(2024, 2, 31) ? "Yes" : "No");
+
+    ESP_LOGI(TAG, "Setting Timezone to Thailand (UTC+7)...");
+    set_timezone(7);
 
     while (1) {
         DateTime_t now;
